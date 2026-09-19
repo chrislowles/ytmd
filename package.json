@@ -1,0 +1,32 @@
+{
+  "name": "ytmd",
+  "version": "0.1.0",
+  "description": "A simple Electron YouTube Music desktop client",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "chrislowles",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.chrislowles.ytmd",
+    "productName": "ytmd",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "build/icon.png"
+    ],
+    "linux": {
+      "target": ["AppImage"],
+      "category": "AudioVideo",
+      "icon": "build/icon.png"
+    }
+  }
+}
