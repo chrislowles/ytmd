@@ -6,7 +6,7 @@ let mainWindow;
 let tray;
 let isQuitting = false;
 
-const YTM_URL = 'https://music.youtube.com';
+//const YTM_URL = 'https://music.youtube.com';
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -20,7 +20,7 @@ function createWindow() {
     },
   });
 
-  mainWindow.loadURL(YTM_URL);
+  mainWindow.loadURL('https://music.youtube.com');
 
   // Inject custom CSS/JS once the page finishes loading
   mainWindow.webContents.on('did-finish-load', () => {
@@ -71,7 +71,7 @@ function createTray() {
 
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Show ytmd',
+      label: 'Open/Show YTM',
       click: () => {
         mainWindow.show();
       },
