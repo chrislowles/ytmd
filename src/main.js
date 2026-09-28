@@ -12,7 +12,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 800,
-    icon: path.join(__dirname, '../build/icon.png'),
+    icon: path.join(__dirname, '../build/ytmd.svg'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -65,7 +65,7 @@ function injectCustomScript() {
 }
 
 function createTray() {
-  const iconPath = path.join(__dirname, '../build/tray-icon.png');
+  const iconPath = path.join(__dirname, '../build/ytmd.svg');
   const trayIcon = nativeImage.createFromPath(iconPath);
   tray = new Tray(trayIcon);
 
