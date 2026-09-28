@@ -3,10 +3,9 @@ name: CI Build
 on:
   push:
     branches:
-      - '**'
-    tags-ignore:
-      - 'v*.*.*'
-  pull_request:
+      - main
+  pull_request: {}
+  workflow_dispatch: {}
 
 jobs:
   build-linux:
@@ -33,4 +32,5 @@ jobs:
         with:
           name: ytmd-appimage
           path: dist/*.AppImage
+          if-no-files-found: error
           retention-days: 7
