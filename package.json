@@ -2,6 +2,7 @@
   "name": "ytmd",
   "version": "0.1.0",
   "description": "A simple Electron YouTube Music desktop client",
+  "repository": "chrislowles/ytmd",
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
