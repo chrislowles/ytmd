@@ -9,7 +9,7 @@
     "build": "electron-builder"
   },
   "author": "chrislowles",
-  "license": "MIT",
+  "license": "Unlicense",
   "devDependencies": {
     "electron": "^33.0.0",
     "electron-builder": "^25.1.8"
