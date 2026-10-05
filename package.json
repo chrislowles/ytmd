@@ -1,6 +1,6 @@
 {
   "name": "ytmd",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A simple Electron YouTube Music desktop client.",
   "repository": "chrislowles/ytmd",
   "main": "src/main.js",
@@ -25,7 +25,9 @@
       "build/ytmd.svg"
     ],
     "linux": {
-      "target": ["AppImage"],
+      "target": [
+        "AppImage"
+      ],
       "category": "AudioVideo",
       "icon": "build/ytmd.svg"
     }
