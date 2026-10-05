@@ -29,7 +29,7 @@ jobs:
         run: npx electron-builder --linux AppImage --publish never
 
       - name: Upload AppImage artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ytmd-appimage
           path: dist/*.AppImage
