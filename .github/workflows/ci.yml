@@ -35,11 +35,21 @@ jobs:
         run: npm ci
 
       - name: Allow unprivileged user namespaces (needed by flatpak-builder/bwrap)
-        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_unconfined=0 || true
+
+      - name: Sandbox diagnostics
+        run: |
+          flatpak --version
+          flatpak-builder --version
+          flatpak list --user
+          bwrap --unshare-all --ro-bind / / --dev /dev true && echo "bwrap OK"
+          ls -l /dev/fuse || true
 
       - name: Build Flatpak (no publish)
         env:
-          DEBUG: electron-builder,flatpak-bundler
+          DEBUG: "*"
         run: npx electron-builder --linux flatpak --publish never
 
       - name: Upload Flatpak artifact
