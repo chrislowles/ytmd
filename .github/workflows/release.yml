@@ -51,7 +51,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Flatpak
+      - name: Allow unprivileged user namespaces (needed by flatpak-builder/bwrap)
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
+      - name: Build Flatpak (no publish)
+        env:
+          DEBUG: electron-builder,flatpak-bundler
         run: npx electron-builder --linux flatpak --publish never
 
       - name: Attach Flatpak to the release
