@@ -2,6 +2,8 @@ const { app, BrowserWindow, Tray, Menu, nativeImage } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
+app.commandLine.appendSwitch('ozone-platform-hint', 'auto');
+
 let mainWindow;
 let tray;
 let isQuitting = false;
