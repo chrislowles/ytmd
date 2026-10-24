@@ -24,7 +24,6 @@ jobs:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
-  # Only runs in the push where a release was actually just created.
   build-and-upload:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created == 'true' }}
@@ -36,16 +35,26 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
+
+      - name: Install Flatpak tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder elfutils
+          flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          flatpak install --user -y flathub \
+            org.freedesktop.Platform//25.08 \
+            org.freedesktop.Sdk//25.08 \
+            org.electronjs.Electron2.BaseApp//25.08
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build AppImage
-        run: npx electron-builder --linux AppImage --publish never
+      - name: Build Flatpak
+        run: npx electron-builder --linux flatpak --publish never
 
-      - name: Attach AppImage to the release
+      - name: Attach Flatpak to the release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "${{ needs.release-please.outputs.tag_name }}" dist/*.AppImage --clobber
+        run: gh release upload "${{ needs.release-please.outputs.tag_name }}" dist/*.flatpak --clobber
