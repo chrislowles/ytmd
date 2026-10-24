@@ -18,20 +18,29 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
+
+      - name: Install Flatpak tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder elfutils
+          flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          flatpak install --user -y flathub \
+            org.freedesktop.Platform//25.08 \
+            org.freedesktop.Sdk//25.08 \
+            org.electronjs.Electron2.BaseApp//25.08
 
       - name: Install dependencies
         run: npm ci
-        #run: npm install
 
-      - name: Build AppImage (no publish)
-        run: npx electron-builder --linux AppImage --publish never
+      - name: Build Flatpak (no publish)
+        run: npx electron-builder --linux flatpak --publish never
 
-      - name: Upload AppImage artifact
+      - name: Upload Flatpak artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ytmd-appimage
-          path: dist/*.AppImage
+          name: ytmd-flatpak
+          path: dist/*.flatpak
           if-no-files-found: error
           retention-days: 7
